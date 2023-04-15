@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  project-name:
+    image: ccs/s-m
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "3750:3750"
+    volumes:
+      - ./static/:/app/static/
