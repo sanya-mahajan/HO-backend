@@ -37,9 +37,14 @@ class PostViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action in ("create", "update", "partial_update", "destroy"):
             return PostWriteSerializer
+            
+                
+            
         
 
-        return PostReadSerializer
+        else:
+            #return list of all posts as json
+            return PostReadSerializer
 
     # get_permissions(self) method helps you separate permissions for different actions inside the same view.
     def get_permissions(self):

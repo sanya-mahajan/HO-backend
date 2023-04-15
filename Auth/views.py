@@ -40,7 +40,7 @@ class UserLoginAPIView(GenericAPIView):
     """
     An endpoint to authenticate existing users using their email and password.
     """
-
+    
     permission_classes = (AllowAny,)
     serializer_class = serializers.UserLoginSerializer
 
@@ -52,6 +52,8 @@ class UserLoginAPIView(GenericAPIView):
         #token = RefreshToken.for_user(user)
         data = serializer.data
         #data["tokens"] = {"refresh": str(token), "access": str(token.access_token)}
+        auth_token= Token.objects.get(user=user)
+        data['token']= auth_token.key
         return Response(data, status=status.HTTP_200_OK)
 
 class UserLogoutAPIView(GenericAPIView):

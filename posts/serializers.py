@@ -8,14 +8,12 @@ class CategoryReadSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class PostReadSerializer(serializers.ModelSerializer):
-    author = serializers.CharField(source="author.username", read_only=True)
-    categories = serializers.SerializerMethodField(read_only=True)
-    likes = serializers.SerializerMethodField(read_only=True)
-
+    
     class Meta:
         model = Post
         fields = "__all__"
 
+    
     def get_categories(self, obj):
         categories = list(
             cat.name for cat in obj.categories.get_queryset().only("name")
