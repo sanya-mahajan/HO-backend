@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from .profanitycheck import profanity_check
 from .models import Category, Comment, Post
 
 class CategoryReadSerializer(serializers.ModelSerializer):
@@ -28,7 +28,13 @@ class PostReadSerializer(serializers.ModelSerializer):
 
 class PostWriteSerializer(serializers.ModelSerializer):
     #author = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    email=serializers.EmailField()
+    #write Post body field as censored content
+
+    def validate_body(self, value):
+        print("value",value)
+        if profanity_check(value):
+            raise serializers.ValidationError("Profanity is not allowed")
+        return value
     
     class Meta:
         model = Post

@@ -7,5 +7,6 @@ django-cors-headers
 djangorestframework
 pillow==9.3.0
 djangorestframework-simplejwt==5.2.2
-profanity-check==1.0.3
+
+
 
