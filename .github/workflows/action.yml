@@ -1,0 +1,19 @@
+name: scp files
+on: [push]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v0.1.4
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd ${{secrets.REPO_PATH}}
+          echo ${{secrets.PASSWORD}} | sudo -S make redeploy
