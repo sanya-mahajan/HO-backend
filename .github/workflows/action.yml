@@ -1,18 +1,25 @@
 name: scp files
-on: [push]
-jobs:
+on: 
+   push:
+      branches:
+           - "main" 
+   workflow_dispatch:
 
-  build:
-    name: Build
+
+jobs:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - name: copy file via ssh password
-      uses: appleboy/scp-action@v0.1.4
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.PORT }}
-        run: |
-          cd ${{secrets.REPO_PATH}}
-          echo ${{secrets.PASSWORD}} | sudo -S make redeploy
+      - name: "appleboy deployment"
+        uses: appleboy/ssh-action@v0.1.4
+        
+        with:
+          host: ${{secrets.HOST}}
+          
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}}
+          
+          script: |
+            cd ${{secrets.REPO_PATH}}
+            echo ${{secrets.PASSWORD}} | sudo -S make redeploy
