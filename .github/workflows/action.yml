@@ -13,6 +13,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: |
+        run: |
           cd ${{secrets.REPO_PATH}}
           echo ${{secrets.PASSWORD}} | sudo -S make redeploy
