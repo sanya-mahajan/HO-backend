@@ -4,9 +4,7 @@ create:
 destroy:
 	sudo docker-compose down
 
-recreateall:
-	make destroy
-	make create
+
 
 redeploy:
 	make destroy
